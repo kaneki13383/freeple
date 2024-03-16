@@ -2,7 +2,7 @@
   <HeaderComponent />
   <router-view></router-view>
   <FooterComponent />
-  
+
 </template>
 
 <script>
@@ -16,6 +16,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
