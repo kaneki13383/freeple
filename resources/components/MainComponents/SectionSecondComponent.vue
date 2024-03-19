@@ -35,6 +35,7 @@ section {
     h2 {
         text-align: center;
         font-size: 48px;
+        color: #1B374F;
     }
 
     .all {
