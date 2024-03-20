@@ -40,7 +40,7 @@ export default {
             email: '',
             password: '',
             password_repeat: '',
-            message: ''
+            message: []
         }
     },
     methods: {
@@ -56,7 +56,7 @@ export default {
                         this.$router.push('/profile')
                     })
                     .catch(err => {
-                        console.log(err);
+                        this.message = err.response.data.message
                     })
             }
             else {
