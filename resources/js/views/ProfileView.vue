@@ -1,16 +1,11 @@
 <template>
     <div>
-        <button @click="Logout()">Выход</button>
+        <button @click.prevent="Logout()">Выход</button>
     </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-
-        }
-    },
     methods: {
         Logout() {
             axios.get('/api/logout', {

@@ -159,6 +159,7 @@ export default {
                     background: #CDF2FA;
                     font-family: "Montserrat";
                     color: #1B374F;
+                    font-weight: bold;
                     font-size: 18px;
                     border: none;
                     height: 60px;

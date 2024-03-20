@@ -21,14 +21,22 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            token: localStorage.getItem('token'),
+            token: '',
             me: []
         }
     },
     mounted() {
+        this.GetToken()
         if (this.token) {
             this.GetMe()
         }
+    },
+
+    watch: {
+        $route() {
+            this.GetToken();
+            this.GetMe();
+        },
     },
     methods: {
         GetMe() {
@@ -45,6 +53,9 @@ export default {
                         this.$router.push("/");
                     });
             }
+        },
+        GetToken() {
+            this.token = localStorage.getItem('token');
         }
     },
 }
