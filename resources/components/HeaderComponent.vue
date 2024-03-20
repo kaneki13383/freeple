@@ -7,16 +7,46 @@
                 <a href="">Стать исполнителем</a>
             </div>
             <div class="header_auth">
-                <router-link to="/login">Вход</router-link>
-                <router-link to="/register">Регистрация</router-link>
+                <router-link to="/login" v-if="!token">Вход</router-link>
+                <router-link to="/register" v-if="!token">Регистрация</router-link>
+                <router-link to="/profile" v-if="token">Здравствуйте, {{ me.name }}</router-link>
             </div>
         </header>
     </div>
 </template>
 
 <script>
-export default {
+import axios from 'axios';
 
+export default {
+    data() {
+        return {
+            token: localStorage.getItem('token'),
+            me: []
+        }
+    },
+    mounted() {
+        if (this.token) {
+            this.GetMe()
+        }
+    },
+    methods: {
+        GetMe() {
+            if (this.token) {
+                axios.get("/api/me", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                })
+                    .then((res) => {
+                        this.me = res.data.content;
+                    })
+                    .catch((err) => {
+                        this.$router.push("/");
+                    });
+            }
+        }
+    },
 }
 </script>
 
@@ -72,14 +102,14 @@ header {
             color: #1B374F;
         }
 
-        a:nth-child(2) {
+        a:last-child {
             transition: .55s;
             background-color: #CDF2FA;
             padding: 25px 48px;
             border-radius: 40px;
         }
 
-        a:nth-child(2):hover {
+        a:last-child:hover {
             box-shadow: 4px 6px 5px 0 #CDF2FA;
             background-color: #99EDFF;
         }

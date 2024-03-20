@@ -1,18 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-*{
+
+* {
     padding: 0;
     margin: 0;
     list-style-type: none;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: "Montserrat" , sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
-body{
+html {
+    overflow-x: hidden;
+}
+
+body {
     background: #F8F8F8;
 }
 
-.container{
+.container {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;

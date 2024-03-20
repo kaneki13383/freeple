@@ -24,7 +24,9 @@
                 </div>
             </form>
         </div>
-        <p class="error">{{ message }}</p>
+        <Transition name="bounce">
+            <p class="error" @click="message = ''" v-if="message != ''">{{ message }}</p>
+        </Transition>
     </div>
 </template>
 
@@ -44,9 +46,17 @@ export default {
     methods: {
         Register() {
             if (this.password == this.password_repeat) {
-                axios.post('/api/register')
+                axios.post('/api/register', {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password
+                })
                     .then(res => {
-                        this.$route.push('/')
+                        localStorage.setItem("token", res.data["content"]);
+                        this.$router.push('/profile')
+                    })
+                    .catch(err => {
+                        console.log(err);
                     })
             }
             else {
@@ -58,6 +68,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bounce-enter-active {
+    animation: bounce-in 1s;
+}
+
+.bounce-leave-active {
+    animation: bounce-in 1s reverse;
+}
+
+@keyframes bounce-in {
+    0% {
+        right: -250px;
+    }
+
+    100% {
+        right: 20px;
+    }
+}
+
 .background {
     width: 100%;
     height: 100vh;
@@ -66,10 +94,10 @@ export default {
     justify-content: center;
     align-items: center;
 
-
     .error {
+        cursor: pointer;
         position: absolute;
-        bottom: 20px;
+        top: 20px;
         right: 20px;
         color: red;
         text-align: center;
