@@ -3,13 +3,19 @@
         <div class="block">
             <router-link to="/">LOGIN</router-link>
             <form action="">
-                <div>
+                <div :class="{ error: v$.name.$errors.length }">
                     <label for="">Никнейм</label>
-                    <input type="text" v-model="name" placeholder="Придумайте никнейм">
+                    <input type="text" v-model="v$.name.$model" name="name" placeholder="Придумайте никнейм">
+                    <div class="input-errors" v-for="(error, index) of v$.name.$errors" :key="index">
+                        <div class="error-msg" style="color: red;">{{ error.$message }}</div>
+                    </div>
                 </div>
-                <div>
+                <div :class="{ error: v$.password.$errors.length }">
                     <label for="">Пароль</label>
-                    <input type="password" v-model="password" placeholder="Ваш пароль">
+                    <input type="password" v-model="v$.password.$model" placeholder="Ваш пароль">
+                    <div class="input-errors" v-for="(error, index) of v$.password.$errors" :key="index">
+                        <div class="error-msg" style="color: red;">{{ error.$message }}</div>
+                    </div>
                 </div>
                 <div>
                     <button @click.prevent="Login()">Войти</button>
@@ -17,15 +23,28 @@
             </form>
         </div>
         <Transition name="bounce">
-            <p class="error" @click="message = ''" v-if="message != ''">{{ message }}</p>
+            <p class="error_right" @click="message = ''" v-if="message != ''">{{ message }}</p>
         </Transition>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import useVuelidate from "@vuelidate/core";
+import { required, email, minLength, helpers } from "@vuelidate/validators";
+
+export function validName(name) {
+    let validNamePattern = new RegExp("^[а-яА-Я]+(?:[-'\\s][а-яА-Я]+)*$");
+    if (validNamePattern.test(name)) {
+        return true;
+    }
+    return false;
+}
 
 export default {
+    setup() {
+        return { v$: useVuelidate() };
+    },
     data() {
         return {
             name: '',
@@ -34,6 +53,26 @@ export default {
             password_repeat: '',
             message: ''
         }
+    },
+    validations() {
+        return {
+            name: {
+                required: helpers.withMessage(
+                    "Обязательное поле для заполнения",
+                    required
+                )
+            },
+            password: {
+                required: helpers.withMessage(
+                    "Обязательное поле для заполнения",
+                    required
+                ),
+                min: helpers.withMessage(
+                    "Минимальное количество символов 8",
+                    minLength(8)
+                ),
+            },
+        };
     },
     methods: {
         Login() {
@@ -47,6 +86,10 @@ export default {
                 })
                 .catch(err => {
                     this.message = err.response.data.message
+
+                    setTimeout(() => {
+                        this.message = ''
+                    }, 4000);
                 })
         }
     },
@@ -80,7 +123,7 @@ export default {
     justify-content: center;
     align-items: center;
 
-    .error {
+    .error_right {
         cursor: pointer;
         position: absolute;
         top: 20px;

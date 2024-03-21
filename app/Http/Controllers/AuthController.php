@@ -16,6 +16,12 @@ class AuthController extends Controller
                 'message' => 'Пользователь уже создан',
             ], 401);
         }
+        $check_email = User::where('email', $request->input('email'))->first('email');;
+        if ($request->input('email') == $check_email['email']) {
+            return response()->json([
+                'message' => 'Пользователь с таким email уже есть',
+            ], 401);
+        }
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
