@@ -11,17 +11,24 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        if (Auth::attempt($request->all())) {
-            return response()->json([
-                'message' => 'Пользователь уже создан',
-            ], 401);
+        $email = User::where('email', $request->input('email'))->first();
+        if ($email != null) {
+            if ($email['email'] == $request->input('email')) {
+                return response()->json([
+                    'message' => 'Этот emai уже используется',
+                ], 401);
+            }
         }
-        $check_email = User::where('email', $request->input('email'))->first('email');;
-        if ($request->input('email') == $check_email['email']) {
-            return response()->json([
-                'message' => 'Пользователь с таким email уже есть',
-            ], 401);
+
+        $name = User::where('name', $request->input('name'))->first();
+        if ($name != null) {
+            if ($name['name'] == $request->input('name')) {
+                return response()->json([
+                    'message' => 'Этот никнейм уже используется',
+                ], 401);
+            }
         }
+
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
