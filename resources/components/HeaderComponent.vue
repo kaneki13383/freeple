@@ -4,7 +4,7 @@
             <div class="logo"><router-link to="/">Freeple</router-link> </div>
             <div class="header_links">
                 <a href="">Найти специалиста</a>
-                <a href="">Стать исполнителем</a>
+                <router-link to="/performer">Стать исполнителем</router-link>
             </div>
             <div class="header_auth">
                 <router-link to="/login" v-if="!token">Вход</router-link>
