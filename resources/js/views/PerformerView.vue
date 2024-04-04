@@ -1,10 +1,11 @@
 <template>
     <section class="container">
-        <div class="menu">
+        <!-- <div class="menu">
             <a href="">Найти специалиста</a>
-            <a href="">Мои заказы</a>
+            <router-link to="/neworder">Мои заказы</router-link>
             <a href="">Стать исполнителем</a>
-        </div>
+        </div> -->
+        <MenuComponent />
 
         <div class="performer">
             <h1>Станьте исполнителем</h1>
@@ -55,8 +56,12 @@
 </template>
 
 <script>
-export default {
 
+import MenuComponent from '../../components/MenuComponent.vue'
+export default {
+    components: {
+        MenuComponent
+    }
 }
 </script>
 
@@ -235,7 +240,7 @@ hr {
     width: 690px;
 
     :hover {
-        box-shadow: 4px 6px 5px 0 #CDF2FA;
+        box-shadow: 4px 5px 5px 0 #CDF2FA;
         background-color: #99EDFF;
 
     }
@@ -246,15 +251,17 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px;
-    height: 59px;
     border-radius: 40px;
     background: #CDF2FA;
     transition: .55s;
 
     a {
-
-
+        width: 200px;
+        height: 59px;
+        border-radius: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-family: 'Montserrat';
         font-style: normal;
         font-weight: 700;
