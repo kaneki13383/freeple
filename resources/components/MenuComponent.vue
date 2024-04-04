@@ -2,7 +2,7 @@
     <div class="menu">
         <a href="">Найти специалиста</a>
         <router-link to="/neworder">Мои заказы</router-link>
-        <a href="">Стать исполнителем</a>
+        <router-link to="/performer">Стать исполнителем</router-link>
     </div>
 </template>
 

@@ -33,7 +33,7 @@
             </div>
             <div class="btn_border">
                 <div class="btn">
-                    <a href="">Создать</a>
+                    <router-link to="/mainorder">Создать</router-link>
                 </div>
             </div>
 

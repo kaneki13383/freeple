@@ -4,8 +4,8 @@
             <h1>Выполняйте задания и получайте прибыль</h1>
             <p>Или поручите свои дела специалистам </p>
             <div class="btns">
-                <a href="">Стать специалистом</a>
-                <a href="">Разместить задание</a>
+                <router-link to="/performer">Стать специалистом</router-link>
+                <router-link to="/neworder">Разместить задание</router-link>
             </div>
         </div>
         <div class="second">

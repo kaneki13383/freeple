@@ -5,7 +5,7 @@
             <div v-for="btns_usl in arr" :key="btns_usl" class="btns_usl">
                 <div>
                     <img :src="btns_usl.img" alt="">
-                    <p>{{ btns_usl.name }}</p>
+                    <a>{{ btns_usl.name }}</a>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@ section {
             display: flex;
             align-items: center;
             justify-content: center;
-
+            cursor: pointer;
             gap: 40px;
 
 
@@ -88,7 +88,7 @@ section {
                 padding-left: 5px;
             }
 
-            p {
+            a {
                 /* Электрик */
 
                 font-family: 'Montserrat';
