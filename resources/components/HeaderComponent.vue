@@ -9,7 +9,9 @@
             <div class="header_auth">
                 <router-link to="/login" v-if="!token">Вход</router-link>
                 <router-link to="/register" v-if="!token">Регистрация</router-link>
-                <router-link to="/profile" v-if="token">Здравствуйте, {{ me.name }}</router-link>
+                <router-link to="/profile" v-if="token && me.role == 0">Здравствуйте, {{ me.name }}</router-link>
+                <router-link to="/profile/performer" v-if="token && me.role == 1">Здравствуйте, {{ me.name
+                    }}</router-link>
             </div>
         </header>
     </div>

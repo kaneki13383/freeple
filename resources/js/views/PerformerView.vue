@@ -6,26 +6,22 @@
             <a href="">Стать исполнителем</a>
         </div> -->
         <MenuComponent />
-
         <div class="performer">
             <h1>Станьте исполнителем</h1>
-
             <div class="performer_inputs">
-
                 <form action="">
                     <div>
-
-                        <input type="text" placeholder="Имя">
+                        <input type="text" v-model="name" placeholder="Имя">
                     </div>
                     <div>
-                        <input type="text" placeholder="Фамилия">
+                        <input type="text" v-model="surname" placeholder="Фамилия">
                     </div>
                     <div>
-                        <input type="text" placeholder="Телефон">
+                        <input type="text" v-model="number" placeholder="Телефон">
                     </div>
 
                 </form>
-                <div class="btns_border">
+                <!-- <div class="btns_border">
                     <div class="btns">
                         <div class="price">
                             <img src="/public/img/money_bag.png" alt="">
@@ -35,33 +31,57 @@
                             <img src="/public/img/office.png" alt="">
                             <a>Фото</a>
                         </div>
-
-
                     </div>
-                </div>
+                </div> -->
                 <hr>
                 <div class="enter_border">
                     <div class="btn_enter">
                         <div class="enter">
-                            <a href="">Продолжить</a>
+                            <a @click.prevent="Performer()">Продолжить</a>
                         </div>
+                        <p>{{ message }}</p>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </section>
-
 </template>
 
 <script>
+import axios from 'axios';
 
 import MenuComponent from '../../components/MenuComponent.vue'
 export default {
     components: {
         MenuComponent
-    }
+    },
+    data() {
+        return {
+            name: '',
+            surname: '',
+            number: '',
+            message: ''
+        }
+    },
+    methods: {
+        Performer() {
+            axios.post("/api/performer", {
+                name: this.name,
+                surname: this.surname,
+                number: this.number,
+            },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                }
+            )
+                .then(res => {
+                    console.log(res);
+                    this.message = res.data.message
+                })
+        }
+    },
 }
 </script>
 
