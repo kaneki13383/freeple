@@ -1,7 +1,7 @@
 <template>
-  <HeaderComponent v-if="this.$route.path != '/register' && this.$route.path != '/login'" />
+  <HeaderComponent/>
   <router-view></router-view>
-  <FooterComponent v-if="this.$route.path != '/register' && this.$route.path != '/login'" />
+  <FooterComponent/>
 
 </template>
 
